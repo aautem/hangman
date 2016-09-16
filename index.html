@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <link type="text/css" rel="stylesheet" href="hangman.css" />
+  </head>
+
+  <body>
+    
+<!-- HANGMAN AREA -->
+    <div id="game_space">
+      
+<!-- SUPPORT STRUCTURE -->
+      <div id="base"></div>
+      <div id="pole"></div>
+      <div id="support"></div>
+      <div id="noose"></div>
+      
+<!-- HANGMAN BODY / VISIBILITY = HIDDEN TO START GAME -->
+      <div id="head"></div>
+      <div id="torso"></div>
+      <div id="left_arm"></div>
+      <div id="right_arm"></div>
+      <div id="left_leg"></div>
+      <div id="right_leg"></div>
+      
+    </div>
+    
+<!-- BOXES FOR CORRECT LETTERS / EMPTY TO START GAME -->
+    <div id="letters">
+      
+    </div>
+    
+<!-- BOX FOR INCORRECT GUESSES / EMPTY TO START GAME -->
+    <div id="guesses">
+      
+    </div>
+    
+<!-- NEW GAME & GUESS BUTTONS -->
+    <div id="buttons">
+      <button id="button">New Game</button>
+    </div>
+  
+  <script>
+
+// SELECT NEW GAME BUTTON AND CREATE ONCLICK FUNCTION
+    var game = document.getElementById("button");
+    game.onclick = function() {
+      
+// SELECT NEW GAME BUTTON AND DELETE IT
+      var select = document.getElementById("button");
+      select.parentNode.removeChild(select);
+      
+// ASK PLAYER ONE FOR WORD OR PHRASE TO HIDE
+      var word = prompt("What word will the hangman hide?", "Type word or phrase here");
+      word = word.toUpperCase();
+
+// ITERATE THROUGH LETTERS IN WORD OR PHRASE
+      for (i = 0; i < word.length; i++) {
+
+// IF LETTER IS A SPACE, ADD SPECIAL SPACE BOX TO DOM
+        if (word[i] === " ") {
+          var divSpace = document.createElement("div");
+          divSpace.className = 'space';
+          document.getElementById("letters").appendChild(divSpace);
+          
+// OTHERWISE, ADD EMPTY BOX FOR LETTER TO DOM
+        } else {
+          var divBox = document.createElement("div");
+          divBox.className = 'box';
+          document.getElementById("letters").appendChild(divBox);
+        }
+      };
+      
+// CREATE GUESS BUTTON AND ADD TO DOM
+      var guessButton = document.createElement("button");
+      guessButton.innerHTML = "Guess";
+      guessButton.id = 'guess';
+      document.getElementById("buttons").appendChild(guessButton);
+      
+// ADD EVENT LISTENER AND CREATE FUNCTION
+      guessButton.addEventListener("click", function() {
+        
+// ASK PLAYER TWO WHAT LETTER TO GUESS
+        var letter = prompt("What letter would you like to guess?", "Type letter here");
+        letter = letter.toUpperCase();
+        
+// KEEP TRACK OF LETTER APPEARANCES IN WORD OR PHRASE
+        var letter_count = 0;
+        
+// ITERATE THROUGH LETTERS IN WORD AND CHECK IF THEY MATCH GUESS
+        for (i = 0; i < word.length; i++) {
+          
+// IF THEY MATCH, ADD LETTER TO CORRESPONDING BOX
+          if (word[i] === letter) {
+            var b = document.getElementById("letters").childNodes[i+1];
+            b.innerHTML = letter;
+            letter_count += 1;
+          }
+        };
+        
+// IF NO MATCHES, ADD LETTER TO INCORRECT GUESSES BOX
+        if (letter_count < 1) {
+          var b = document.getElementById("guesses");
+          b.innerHTML += (" " + letter);
+          var g = document.getElementById("game_space");
+          
+// ITERATE THROUGH HANGMAN BODY PARTS
+          for (x = 4; x < 10; x++) {
+            var h = g.getElementsByTagName('div')[x];
+            
+// IF VISIBILITY IS HIDDEN, CHANGE TO VISIBLE AND BREAK FOR LOOP
+            if (h.style.visibility!="visible") {
+              h.style.visibility="visible";
+              break;
+            }
+          }
+        }
+      });
+    };
+
+  </script>
+  </body>
+</html>

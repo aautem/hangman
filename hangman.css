@@ -1,0 +1,132 @@
+/* DIV CONTAINING THE HANGMAN AREA */
+#game_space {
+  height: 500px;
+  width: 600px;
+  background-color: #d3d3d3;
+  border-color: black;
+  border-style: solid;
+  border-width: 5px;
+}
+
+/* POLE STRUCTURE DIV */
+#pole {
+  height: 400px;
+  width: 10px;
+  background-color: black;
+  position: absolute;
+  top: 60px;
+  left: 100px;
+}
+
+/* BASE OF HANGMAN STRUCTURE */
+#base {
+  height: 10px;
+  width: 100px;
+  background-color: black;
+  position: absolute;
+  top: 460px;
+  left: 55px;
+}
+
+/* TOP SUPPORT OF HANGMAN STRUCTURE */
+#support {
+  height: 10px;
+  width: 300px;
+  background-color: black;
+  position: absolute;
+  top: 60px;
+  left: 100px;
+}
+
+/* NOOSE DIV */
+#noose {
+  height: 60px;
+  width: 10px;
+  background-color: black;
+  position: absolute;
+  top: 60px;
+  left: 400px;
+}
+
+#head {
+  height: 60px;
+  width: 60px;
+  border-radius: 100%;
+  border-color: black;
+  border-style: solid;
+  border-width: 5px;
+  position: absolute;
+  top: 120px;
+  left: 370px;
+  visibility: hidden;
+}
+
+#torso {
+  height: 100px;
+  width: 5px;
+  background-color: black;
+  position: absolute;
+  top: 185px;
+  left: 400px;
+  visibility: hidden;
+}
+
+#left_arm {
+  height: 5px;
+  width: 60px;
+  background-color: black;
+  position: absolute;
+  top: 215px;
+  left: 345px;
+  -webkit-transform: rotate(-20deg);
+  -moz-transform: rotate(-20deg);
+  -ms-transform: rotate(-20deg);
+  -o-transform: rotate(-20deg);
+  transform: rotate(-20deg);
+  visibility: hidden;
+}
+
+#right_arm {
+  height: 5px;
+  width: 60px;
+  background-color: black;
+  position: absolute;
+  top: 215px;
+  left: 400px;
+  -webkit-transform: rotate(20deg);
+  -moz-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
+  -o-transform: rotate(20deg);
+  transform: rotate(20deg);
+  visibility: hidden;
+}
+
+#left_leg {
+  height: 75px;
+  width: 5px;
+  background-color: black;
+  position: absolute;
+  top: 273px;
+  left: 375px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  visibility: hidden;
+}
+
+#right_leg {
+  height: 75px;
+  width: 5px;
+  background-color: black;
+  position: absolute;
+  top: 273px;
+  left: 425px;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  visibility: hidden;
+}
