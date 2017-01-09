@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link type="text/css" rel="stylesheet" href="main.css" />
+    <title>Hangman 3.0</title>
+    <link type="text/css" rel="stylesheet" href="styles.css" />
+
+    <!-- dependencies -->
+    <script src="jquery.js"></script>
+
+    <!-- my scripts -->
+    <script src="game.js"></script>
   </head>
   <body>
     <div class="row">
-    
+
 <!-- HANGMAN AREA -->
       <section class="game-space">
-      
+
 <!-- SUPPORT STRUCTURE -->
-        <section>
+        <section class="support">
           <div id="base"></div>
           <div id="pole"></div>
           <div id="support"></div>
           <div id="noose"></div>
         </section>
-      
+
 <!-- HANGMAN BODY / VISIBILITY = HIDDEN TO START GAME -->
         <section class="hangman">
           <div id="head"></div>
@@ -26,114 +33,35 @@
           <div id="left-leg"></div>
           <div id="right-leg"></div>
         </section>
-      
-      </section>
-    </div>
-    
-<!-- BOXES FOR CORRECT LETTERS / EMPTY TO START GAME -->
-    <div class="row">
-      <section class="letters">
-      
-      </section>
-    </div>
-    
-<!-- BOX FOR INCORRECT GUESSES / EMPTY TO START GAME -->
-    <div class="row">
-      <section class="guesses">
 
       </section>
     </div>
-    
+
+<!-- BOXES FOR CORRECT LETTERS / EMPTY TO START GAME -->
+    <div class="row">
+      <section class="letters">
+
+      </section>
+    </div>
+
+<!-- BOX FOR INCORRECT GUESSES / EMPTY TO START GAME -->
+    <div class="row">
+      <section class="guesses">
+        <span class="welcome">WELCOME TO HANGMAN</span>
+      </section>
+    </div>
+
 <!-- NEW GAME & GUESS BUTTONS -->
     <div class="row">
       <section class="buttons">
         <button class="new-game">New Game</button>
       </section>
     </div>
-  
-  <script src="jquery.js"></script>
+
   <script>
-
-// WAIT FOR DOCUMENT TO LOAD
-  $(document).ready(function() {
-
-// CLICK 'NEW GAME' BUTTON TO START NEW GAME
-    $('.buttons').on('click', '.new-game', function() {
-
-// GET WORD OR PHRASE TO GUESS
-      var word = prompt("What word will the hangman hide?", "Type word or phrase here");
-      word = word.toUpperCase();
-
-// HIDE YO CHILDREN! REMOVE ELEMENTS OF PREVIOUS GAME AND ADD GUESS BUTTON
-      $('.hangman').children().hide();
-      $('.letters').children().remove();
-      $('.guesses').text('');
-      $('.guess').remove();
-      $('.solve').remove();
-      $('.buttons').append($('<button class="guess">Guess</button>'));
-      $('.buttons').append($('<button class="solve">Solve</button>'));
-
-// CENTER THE LETTER BOXES ON THE PAGE
-      var length = word.length;
-      if (word.length > 15) {
-        $('.letters').css('width', '1000px');
-      } else {
-        $('.letters').css('width', '' + (64*length+2) + 'px');
-      }
-
-// ITERATE THROUGH LETTERS IN WORD
-      for (var i=0; i<word.length; i++) {
-        if (word[i] === ' ') {
-          $('.letters').append($('<div class="space"></div>'));
-        } else {
-          $('.letters').append($('<div class="letter"></div>'));
-        }
-      }
-
-// CLICK GUESS BUTTON TO SUBMIT GUESS
-      $('.buttons').on('click', '.guess', function() {
-        var valid = false;
-
-        while (valid === false) {
-          var newGuess = prompt("What letter would you like to guess?", "Type letter here");
-          newGuess = newGuess.toUpperCase();
-          if (newGuess.length == 1) {
-            valid = true;
-          }
-        }
-
-// KEEP TRACK OF LETTER APPEARANCES IN WORD OR PHRASE
-        var letterCount = 0;
-
-// ITERATE THROUGH LETTERS IN WORD AND CHECK IF THEY MATCH GUESS
-        for (var j=0; j<word.length; j++) {
-          
-// IF THEY MATCH, ADD LETTER TO CORRESPONDING BOX
-          if (newGuess === word[j]) {
-            $('.letters').children().eq(j).text(newGuess);
-            letterCount += 1;
-          }
-        };
-
-// IF NO MATCHES, ADD LETTER TO INCORRECT GUESSES BOX
-        if (letterCount < 1) {
-          var misses = $('.guesses').text();
-          $('.guesses').text(misses + ' ' + newGuess);
-
-// ITERATE THROUGH HANGMAN BODY PARTS
-          for (var x=0; x<6; x++) {
-            var bodyPart = $('.hangman').children().eq(x);
-
-// IF VISIBILITY IS HIDDEN, CHANGE TO VISIBLE AND BREAK FOR LOOP
-            if (bodyPart.is(':hidden')) {
-              bodyPart.slideDown();
-              break;
-            }
-          }
-        }
-      });
+    $(function() {
+      game.initialize();
     });
-  });
   </script>
   </body>
 </html>
