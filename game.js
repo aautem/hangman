@@ -26,29 +26,30 @@ var game = {
           duration: 250
         },
         resizable: false,
-        height: "auto",
+        height: 'auto',
         width: 400,
         modal: true,
         buttons: {
-          "Delete all items": function() {
-            $( this ).dialog( "close" );
+          '1 Player': function() {
+            $(this).dialog('close');
+            game.hideRandomWord();
+            game.renderEmptyBoxes(game.hiddenPhrase);
+            game.setLetterIndexes(game.hiddenPhrase);
           },
-          Cancel: function() {
-            $( this ).dialog( "close" );
+          '2 Player': function() {
+            $(this).dialog('close');
+            game.setHiddenPhrase(prompt('What word will the hangman hide?', 'Type word or phrase here'));
+            game.renderEmptyBoxes(game.hiddenPhrase);
+            game.setLetterIndexes(game.hiddenPhrase);
           }
         }
       });
 
     // Add listeners
     game.$buttons.on('click', '.new-game', function() {
-
+      game.resetGame();
       game.$modal.dialog('open');
-
-      // game.resetGame();
-      // game.addButton('guess', 'guess letter');
-      // game.setHiddenPhrase(prompt('What word will the hangman hide?', 'Type word or phrase here'));
-      // game.renderEmptyBoxes(game.hiddenPhrase);
-      // game.setLetterIndexes(game.hiddenPhrase);
+      game.addButton('guess', 'guess letter');
     });
 
     game.$buttons.on('click', '.guess', function() {
@@ -81,6 +82,15 @@ var game = {
     console.log('setting hidden phrase...');
     phrase = phrase.toUpperCase();
     game.hiddenPhrase = phrase;
+  },
+
+  hideRandomWord: function() {
+    // TODO: Add more categories
+    var categories = {
+      animals: ['horse', 'skunk', 'kangaroo', 'dolphin', 'panda bear', 'tortoise', 'parrot', 'rabbit', 'elephant', 'donkey', 'alligator', 'lizard', 'hedgehog', 'dinosaur']
+    };
+    var index = Math.floor(Math.random() * categories.animals.length);
+    game.hiddenPhrase = categories.animals[index].toUpperCase();
   },
 
   renderEmptyBoxes: function(phrase) {
