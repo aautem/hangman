@@ -3,13 +3,15 @@
   <head>
     <title>Hangman 3.0</title>
     <link type="text/css" rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
 
     <!-- dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
 
     <!-- my scripts -->
     <script src="game.js"></script>
+
   </head>
   <body>
     <div class="row">
@@ -57,6 +59,11 @@
       <section class="buttons">
         <button class="new-game">New Game</button>
       </section>
+    </div>
+
+<!-- GAME TYPE MODAL -->
+    <div id="modal" title="One-player or two-player game?">
+      <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>One-player or two-player game?</p>
     </div>
 
   <script>

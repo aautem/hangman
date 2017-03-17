@@ -7,6 +7,7 @@ var game = {
     game.$letters = $('.letters');
     game.$guesses = $('.guesses');
     game.$buttons = $('.buttons');
+    game.$modal = $('#modal');
     game.bodyParts = [$('<div id="head"></div>'),
                      $('<div id="torso"></div>'),
                      $('<div id="left-arm"></div>'),
@@ -14,13 +15,40 @@ var game = {
                      $('<div id="left-leg"></div>'),
                      $('<div id="right-leg"></div>')];
 
+    game.$modal.dialog({
+        autoOpen: false,
+        show: {
+          effect: 'fade',
+          duration: 250
+        },
+        hide: {
+          effect: 'fade',
+          duration: 250
+        },
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Delete all items": function() {
+            $( this ).dialog( "close" );
+          },
+          Cancel: function() {
+            $( this ).dialog( "close" );
+          }
+        }
+      });
+
     // Add listeners
     game.$buttons.on('click', '.new-game', function() {
-      game.resetGame();
-      game.addButton('guess', 'guess letter');
-      game.setHiddenPhrase(prompt('What word will the hangman hide?', 'Type word or phrase here'));
-      game.renderEmptyBoxes(game.hiddenPhrase);
-      game.setLetterIndexes(game.hiddenPhrase);
+
+      game.$modal.dialog('open');
+
+      // game.resetGame();
+      // game.addButton('guess', 'guess letter');
+      // game.setHiddenPhrase(prompt('What word will the hangman hide?', 'Type word or phrase here'));
+      // game.renderEmptyBoxes(game.hiddenPhrase);
+      // game.setLetterIndexes(game.hiddenPhrase);
     });
 
     game.$buttons.on('click', '.guess', function() {
