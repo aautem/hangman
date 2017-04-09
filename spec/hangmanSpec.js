@@ -46,4 +46,38 @@ describe('Hangman', function() {
       expect(game.gameOver).to.be.a('function');
     });
   });
+
+  describe('hideRandomWord', function() {
+    // hide a random word
+    game.hideRandomWord();
+
+    it('should have a hiddenPhrase property', function() {
+      expect(game).to.have.property('hiddenPhrase');
+    });
+    it('hiddenPhrase should be a string', function() {
+      expect(game.hiddenPhrase).to.be.a('string');
+    });
+  });
+
+  describe('setHiddenPhrase', function() {
+    // set hiddenPhrase to HANGMAN
+    game.setHiddenPhrase('hangman');
+
+    it('should set the hiddenPhrase value', function() {
+      expect(game.hiddenPhrase).to.equal('HANGMAN');
+    });
+  });
+
+  describe('setCurrentGuess', function() {
+    // set letterIndexes of HANGMAN
+    game.guesses = {};
+    game.setCurrentGuess('a');
+
+    it('should create a currentGuess property', function() {
+      expect(game).to.have.property('currentGuess');
+    });
+    it('should create a guesses property', function() {
+      expect(game).to.have.property('guesses');
+    });
+  });
 });
