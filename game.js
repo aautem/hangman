@@ -1,5 +1,9 @@
-var game = {
+// hidden phrase stored in private variable
+// to keep out of plain sight in console
+// accessed with getHiddenPhrase method on game object
+var _hiddenPhrase = null
 
+var game = {
   initialize: function() {
     console.log('initializing...');
     // Cache jQuery selectors
@@ -33,14 +37,14 @@ var game = {
           '1 Player': function() {
             $(this).dialog('close');
             game.hideRandomWord();
-            game.renderEmptyBoxes(game.hiddenPhrase);
-            game.setLetterIndexes(game.hiddenPhrase);
+            game.renderEmptyBoxes(game.getHiddenPhrase());
+            game.setLetterIndexes(game.getHiddenPhrase());
           },
           '2 Player': function() {
             $(this).dialog('close');
             game.setHiddenPhrase(prompt('What word will the hangman hide?', 'Type word or phrase here'));
-            game.renderEmptyBoxes(game.hiddenPhrase);
-            game.setLetterIndexes(game.hiddenPhrase);
+            game.renderEmptyBoxes(game.getHiddenPhrase());
+            game.setLetterIndexes(game.getHiddenPhrase());
           }
         }
       });
@@ -64,7 +68,7 @@ var game = {
     game.$hangman.children().remove();
     game.$letters.children().remove();
     game.$guesses.text('');
-    game.hiddenPhrase = null;
+    _hiddenPhrase = null;
     game.letterIndexes = {};
     game.currentGuess = null;
     game.guesses = {};
@@ -78,10 +82,15 @@ var game = {
     game.$buttons.append(newButton);
   },
 
+  // CLOSURE
+  getHiddenPhrase: function() {
+    return _hiddenPhrase;
+  },
+
   setHiddenPhrase: function(phrase) {
     console.log('setting hidden phrase...');
     phrase = phrase.toUpperCase();
-    game.hiddenPhrase = phrase;
+    _hiddenPhrase = phrase;
   },
 
   hideRandomWord: function() {
@@ -90,7 +99,7 @@ var game = {
       animals: ['horse', 'skunk', 'kangaroo', 'dolphin', 'panda bear', 'tortoise', 'parrot', 'rabbit', 'elephant', 'donkey', 'alligator', 'lizard', 'hedgehog', 'dinosaur']
     };
     var index = Math.floor(Math.random() * categories.animals.length);
-    game.hiddenPhrase = categories.animals[index].toUpperCase();
+    _hiddenPhrase = categories.animals[index].toUpperCase();
   },
 
   renderEmptyBoxes: function(phrase) {
@@ -186,4 +195,4 @@ var game = {
 
 };
 
-module.exports = game;
+game.initialize();
